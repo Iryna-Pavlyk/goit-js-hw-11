@@ -21,3 +21,50 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+.form {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 36px;
+}
+
+input {
+  border-radius: 4px;
+  width: 272px;
+  height: 40px;
+  font-size: 16px;
+  border: 1px solid #808080;
+  /* padding-left: 8px; */
+  border-radius: 4px;
+  background: #fff;
+}
+
+input::placeholder {
+  padding: 16px 8px;
+  font-size: 16px;
+}
+input:hover {
+  border: 1px solid #000;
+  outline: transparent;
+}
+input:focus {
+  border: 1px solid #4e75ff;
+  outline: transparent;
+}
+
+button {
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  border-radius: 8px;
+  border: 1px solid #4e75ff;
+  padding: 8px 16px;
+  width: 91px;
+  background: #4e75ff;
+  color: #fff;
+}
+
+button:hover {
+  background: #6c8cff;
+}
