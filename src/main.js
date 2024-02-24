@@ -61,7 +61,7 @@ function getImages(link) {
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-  gallery.innerHTML = `<span class="loader"></span>`;
+  gallery.innerHTML = '<span class="loader"></span>';
   request.q = input.value;
   URL += new URLSearchParams(request);
   input.value = '';
