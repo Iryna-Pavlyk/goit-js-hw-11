@@ -4,6 +4,7 @@
   | default @import url()
   |============================
 */
+
 @import url('./reset.css');
 
 :root {
@@ -21,6 +22,8 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+/* ========================= Form */
 
 .form {
   display: flex;
@@ -68,3 +71,90 @@ button {
 button:hover {
   background: #6c8cff;
 }
+
+/* ========================== /Form */
+
+/* ========================== Loader */
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #ff3d00;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.loader::before {
+  left: auto;
+  top: auto;
+  right: 0;
+  bottom: 0;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================== /Loader */
+
+/* ========================== Gallery */
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 32px;
+  gap: 24px;
+}
+
+.gallery-item {
+  border: 1px solid #808080;
+}
+
+.text-list {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+.image {
+  width: 360px;
+  height: 200px;
+}
+
+.text-list-title {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
+
+.text-list-param {
+  font-size: 12px;
+  line-height: 2;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: #2e2f42;
+}
+
+/* ========================== /Gallery */

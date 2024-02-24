@@ -7,57 +7,81 @@ import SimpleLightbox from 'simplelightbox';
 // Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const KEY = '42476589-1f9c9241784e75b96bc1ad3a5';
-const URL = 'https://pixabay.com/api/';
-const QUERY = 'dog';
-const LINK = `${URL}?key=${KEY}&q=${QUERY}&image_type=photo&orientation=horizontal&safesearch=true`;
 const form = document.querySelector('.form');
-const imageGallery = document.querySelector('.image-gallery');
+const input = document.querySelector('input[name=message]');
+const gallery = document.querySelector('.image-gallery');
 
-function getImages() {
-  return fetch(LINK)
+const request = {
+  key: '42476589-1f9c9241784e75b96bc1ad3a5',
+  q: '',
+  image_type: 'photo',
+  orientation: 'horizontal',
+  safesearch: true,
+};
+
+const select = {
+  captionsData: 'alt',
+  captionDelay: 250,
+};
+
+let URL = 'https://pixabay.com/api/?';
+const lightbox = new SimpleLightbox('.image-gallery a', select);
+
+function getImages(link) {
+  return fetch(link)
     .then(response => {
       if (!response.ok) {
         throw new Error('Image error!');
       }
       return response.json();
     })
-    .then(data => data.hits)
+    .then(data => {
+      if (data.hits.length === 0) {
+        iziToast.show({
+          message:
+            'Sorry, there are no images matching your search query. Please try again!',
+          messageColor: '#fafafb',
+          backgroundColor: '#ef4040',
+          theme: 'dark',
+          iconUrl: './public/octagon.svg',
+          iconColor: '#fafafb',
+          messageSize: '16',
+          closeOnEscape: true,
+          maxWidth: '432',
+          position: 'topRight',
+        });
+        gallery.innerHTML = '';
+      }
+      createMarkup(data);
+    })
     .catch(error => {
-      iziToast.show({
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
-        backgroundColor: 'rgba(82, 223, 79, 0.3)',
-        position: 'topCenter',
-      });
+      console.log(error);
     });
 }
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-
-  const items = createMarkup(data);
-  imageGallery.innerHTML = items.join('');
+  gallery.innerHTML = `<span class="loader"></span>`;
+  request.q = input.value;
+  URL += new URLSearchParams(request);
+  input.value = '';
+  getImages(URL);
+  lightbox.refresh();
 });
-// getImages().then(data => {
-//   const images = data.hits;
-//   document.body.innerHTML = images
-//     .map(({ webformatURL }) => `<img class ='images' src='${webformatURL}>`)
-//     .join('');
-// });
 
 function createMarkup(data) {
-  return data.map(item => {
-    const {
-      webformatURL,
-      largeImageURL,
-      tags,
-      likes,
-      views,
-      comments,
-      downloads,
-    } = item;
-    return `<li class="gallery-item">
+  let markup = data.hits
+    .map(
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => {
+        return `<li class="gallery-item">
       <div class="image-wrapper"><a href="${largeImageURL}"><img class="image" src="${webformatURL}" alt="${tags}" width="360"
                     height="200"></a></div>
       <div class="text-wrapper">
@@ -81,5 +105,9 @@ function createMarkup(data) {
         </ul>
       </div>
     </li>`;
-  });
+      }
+    )
+    .join('');
+
+  gallery.innerHTML = markup;
 }
