@@ -6,6 +6,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 // Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import octagon from './img/octagon.png';
 
 const form = document.querySelector('.form');
 const input = document.querySelector('input[name=message]');
@@ -37,13 +38,13 @@ function getImages(link) {
     })
     .then(data => {
       if (data.hits.length === 0) {
-        iziToast.show({
+        iziToast.error({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
           messageColor: '#fafafb',
           backgroundColor: '#ef4040',
           theme: 'dark',
-          iconUrl: './public/octagon.svg',
+          iconUrl: octagon,
           iconColor: '#fafafb',
           messageSize: '16',
           closeOnEscape: true,
