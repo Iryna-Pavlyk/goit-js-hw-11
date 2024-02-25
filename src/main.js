@@ -53,6 +53,7 @@ function getImages(link) {
         gallery.innerHTML = '';
       }
       createMarkup(data);
+      lightbox.refresh();
     })
     .catch(error => {
       console.log(error);
@@ -66,7 +67,6 @@ form.addEventListener('submit', event => {
   URL += new URLSearchParams(request);
   input.value = '';
   getImages(URL);
-  lightbox.refresh();
 });
 
 function createMarkup(data) {
