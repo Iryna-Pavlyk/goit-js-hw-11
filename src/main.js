@@ -12,13 +12,13 @@ const request = {
   safesearch: true,
 };
 
-let URL = 'https://pixabay.com/api/?';
+let url = 'https://pixabay.com/api/?';
 
 form.addEventListener('submit', event => {
   event.preventDefault();
   gallery.innerHTML = '<span class="loader"></span>';
   request.q = input.value;
-  URL += new URLSearchParams(request);
+  url += new URLSearchParams(request);
   input.value = '';
-  getImages(URL);
+  getImages(url);
 });
